@@ -7,7 +7,6 @@ app.secret_key = 'aSecret'
 answer = random.randrange(0,101)
 @app.route('/')
 def indexPage():
-    #session.pop('hint')
     session['answer'] = answer
     return render_template('index.html')
 @app.route('/submit', methods=['POST'])
@@ -17,9 +16,9 @@ def submitted():
     elif int(request.form['guessed']) > session['answer']:
         session['hint'] = 'Too High!'
     else:
-        session['hint'] = 'Got It!!!'
-    # print type(int(request.form['guessed']))
-    # print type(session['answer'])
+        # session['answer'] = random.randrange(0,101)
+        return render_template('result.html')
+
     return redirect('/')
 
 app.run(debug=True)
