@@ -6,8 +6,13 @@ app.secret_key = 'aSecret'
 
 answer = random.randrange(0,101)
 @app.route('/')
+def reset():
+    session['answer'] = random.randrange(0,101)
+    print session['answer']
+    return redirect('/start')
+@app.route('/start')
 def indexPage():
-    session['answer'] = answer
+    # session['answer'] = answer
     return render_template('index.html')
 @app.route('/submit', methods=['POST'])
 def submitted():
@@ -19,6 +24,7 @@ def submitted():
         # session['answer'] = random.randrange(0,101)
         return render_template('result.html')
 
-    return redirect('/')
+    return redirect('/start')
+
 
 app.run(debug=True)
